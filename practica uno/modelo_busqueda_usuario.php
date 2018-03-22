@@ -8,15 +8,17 @@
 		<td> </td>
 	</thead>
 	<tbody>
+<?php
 
-		<?php
+echo "Resultados para : <label>"; echo $txt_buscar = $_POST['txt_buscar'];
+echo "</label> </br>";
 
-	  require 'conexion.php';
+require 'conexion.php';
 
-	    $sql = mysql_query("SELECT * FROM `usuario`");
+   $sql = mysql_query("SELECT * FROM `usuario` WHERE nombre LIKE '%$txt_buscar%' OR apellido LIKE '%$txt_buscar%'");
          $i=1;
 	    while ($row = mysql_fetch_array($sql)) {
-	       $ID_usuario = $row['ID_usuario'];
+	    
 	      ?>
 	      <tr>
 	      	<td> <?php echo $i; ?></td>
@@ -26,17 +28,13 @@
 	      	<td> <?php  echo $row['descripcion']; ?></td>
 	      	<td> 
                 <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModalVer"> Ver </button>
-	      		
-	      		<button class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModalEditar" onclick="btn_editar_usuario('<?php echo $ID_usuario; ?>');"> Edicion </button>
-	      		
+	      		<button class="btn btn-info btn-xs"> Edicion </button>
 	      		<button class="btn btn-danger btn-xs"> Eliminar </button></td>
 	      </tr>
 	      <?php
 	      $i++;
 	    }
+?>
 
-	?>
-		
 	</tbody>
 </table>
-
